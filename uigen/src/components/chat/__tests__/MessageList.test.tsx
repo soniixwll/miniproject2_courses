@@ -65,7 +65,7 @@ test("MessageList renders messages with parts", () => {
           type: "tool-invocation",
           toolInvocation: {
             toolCallId: "asdf",
-            args: {},
+            args: { command: "create", path: "/App.jsx" },
             toolName: "str_replace_editor",
             state: "result",
             result: "Success",
@@ -78,7 +78,8 @@ test("MessageList renders messages with parts", () => {
   render(<MessageList messages={messages} />);
 
   expect(screen.getByText("Creating your component...")).toBeDefined();
-  expect(screen.getByText("str_replace_editor")).toBeDefined();
+  expect(screen.getByText("Created App.jsx")).toBeDefined();
+  expect(screen.queryByText("str_replace_editor")).toBeNull();
 });
 
 test("MessageList shows content for assistant message with content", () => {
